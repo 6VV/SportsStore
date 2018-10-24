@@ -1,0 +1,15 @@
+<div>
+  <small>
+    Your cart:
+    <span *ngIf="cart.itemCount>0">
+      {{cart.itemCount}} item(s)
+      {{cart.cartPrice | currency:"USD":true:"2.2-2"}}
+    </span>
+    <span *ngIf="cart.itemCount==0">
+      (empty)
+    </span>
+  </small>
+  <button type="button" class="btn btn-sm bg-primary btn-info" [disabled]="cart.itemCount==0" routerLink="/cart">
+    购物车
+  </button>
+</div>

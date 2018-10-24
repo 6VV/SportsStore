@@ -1,0 +1,43 @@
+<div class="navbar navbar-inverse bg-primary">
+  <a class="navbar-brand">SPORTS STORE</a>
+</div>
+
+<div class="m-1">
+  <h2 class="text-center">Your Cart</h2>
+  <table class="table table-bordered table-striped p-1">
+    <thead>
+      <tr>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Product</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="cart.lines.length==0">
+        <td>Your Cart is empty</td>
+      </tr>
+      <tr *ngFor="let line of cart.lines">
+        <td class="text-center">
+          <input type="number" class="form-control-sm" style="width:5em" [value]="line.quantity" (change)="cart.updateQuantity(line.product,$event.target.value)">
+        </td>
+        <td class="text-center">{{line.product.name}}</td>
+        <td class="text-center">{{line.product.price | currency:"USD":true:"2.2-2"}}</td>
+        <td class="text-center">{{(line.lineTotal) | currency:"USD":true:"2.2-2"}}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-danger" (click)="cart.removeLine(line.product.id)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="text-right">Total:</td>
+        <td class="text-center">{{cart.cartPrice | currency:"USD":true:"2.2-2"}}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<div>
+  <button class="btn btn-primary" routerLink="/store">Continue Shopping</button>
+  <button class="btn btn-secondary" routerLink="/checkout" [disabled]="cart.lines.length==0">Checkout</button>
+</div>
